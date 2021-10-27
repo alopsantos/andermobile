@@ -34,7 +34,7 @@ export function CategorySelect({
   return (
     <Container>
       <Header>
-        <Title>Categorias</Title>
+        <Title>Bancos</Title>
       </Header>
 
       <FlatList
