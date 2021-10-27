@@ -7,7 +7,7 @@ interface ITypeProps {
 }
 
 export const Container = styled.View<ITypeProps>`
-  background: ${({ theme, type }) =>
+  background-color: ${({ theme, type }) =>
     type === "total" ? theme.colors.secundary : theme.colors.shape};
 
   width: ${RFValue(300)}px;
@@ -27,6 +27,8 @@ export const Header = styled.View`
 export const Title = styled.Text<ITypeProps>`
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(14)}px;
+  color: ${({ theme, type }) =>
+    type === "total" ? theme.colors.shape : theme.colors.text_dark};
 `;
 
 export const Icon = styled(Feather)<ITypeProps>`
@@ -55,10 +57,13 @@ export const Amount = styled.Text<ITypeProps>`
   margin-top: 38px;
   font-size: ${RFValue(32)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
+  color: ${({ theme, type }) =>
+    type === "total" ? theme.colors.shape : theme.colors.text_dark};
 `;
 
 export const LastTransaction = styled.Text<ITypeProps>`
   font-size: ${RFValue(12)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
-  color: #969cb3;
+  color: ${({ theme, type }) =>
+    type === "total" ? theme.colors.text : theme.colors.text_dark};
 `;

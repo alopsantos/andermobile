@@ -21,9 +21,14 @@ const icon = {
   down: "arrow-down-circle",
   total: "dollar-sign",
 };
-export function HighlightCard({ title, amount, lastTransaction, type }: IProps) {
+export function HighlightCard({
+  title,
+  amount,
+  lastTransaction,
+  type,
+}: IProps) {
   return (
-    <Container>
+    <Container type={type}>
       <Header>
         <Title type={type}>{title}</Title>
         <Icon name={icon[type]} type={type} />
