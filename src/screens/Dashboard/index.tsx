@@ -13,6 +13,7 @@ import {
   Transactions,
   Title,
   TransactionList,
+  LogoutButton
 } from "./styles";
 
 import { HighlightCard } from "../../components/HighlightCard";
@@ -24,7 +25,7 @@ import {
 export interface DataListProps extends TransactionCardProps {
   id: string;
 }
-export default function Dashboard() {
+export function Dashboard() {
   const data: DataListProps[] = [
     {
       id: 1,
@@ -98,7 +99,10 @@ export default function Dashboard() {
               <UserName>Anderson Lopes</UserName>
             </User>
           </UserInfo>
-          <Icon name="power" />
+
+          <LogoutButton onPress={() => {}}>
+            <Icon name="power" />
+          </LogoutButton>
         </UserWrapper>
       </Header>
       <HighLightCards>
