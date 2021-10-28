@@ -4,7 +4,7 @@ import { Keyboard, Modal, TouchableWithoutFeedback, Alert } from "react-native";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import uuid from 'react-native-uuid';
+import uuid from "react-native-uuid";
 import { useNavigation } from "@react-navigation/core";
 
 import { Button } from "../../components/Form/Button";
@@ -13,12 +13,7 @@ import { InputForm } from "../../components/Form/InputForm";
 import { TransactionTypeButton } from "../../components/Form/TransactionTypeButton";
 import { CategorySelect } from "../CategorySelect";
 
-import {
-  Container,
-  Form,
-  Fields,
-  TransactionTypes,
-} from "./styles";
+import { Container, Form, Fields, TransactionTypes } from "./styles";
 import { HeaderLayout } from "../../components/Header";
 
 interface IFormData {
@@ -30,7 +25,8 @@ const schema = Yup.object().shape({
   name: Yup.string().required("Nome é obrigatório"),
   amount: Yup.number()
     .typeError("Infome um valor númerio")
-    .positive("O valor não pode ser negativo!"),
+    .positive("O valor não pode ser negativo!")
+    .required("O valor é obrigador informar"),
 });
 
 export function Register() {
@@ -39,7 +35,6 @@ export function Register() {
     name: "Categoria",
   });
   const navigation = useNavigation();
-  
 
   const {
     control,
@@ -74,10 +69,9 @@ export function Register() {
       category: category.key,
       date: new Date(),
     };
-    console.log(newTransaction);
     try {
       const dataKey = "@ander:transactions";
-      
+
       const data = await AsyncStorage.getItem(dataKey);
       const currentData = data ? JSON.parse(data) : [];
 
@@ -86,16 +80,14 @@ export function Register() {
       await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted));
 
       reset();
-      setTransactionType('');
+      setTransactionType("");
       setCategory({
-        key: 'category',
-        name: 'Categoria'
+        key: "category",
+        name: "Categoria",
       });
 
-      navigation.navigate('Listagem');
-
+      navigation.navigate("Listagem");
     } catch (error) {
-      console.log(error);
       Alert.alert("Não foi possivel salvar!");
     }
   }
@@ -125,13 +117,13 @@ export function Register() {
               <TransactionTypeButton
                 isActive={transactionType === "positivo"}
                 title="Income"
-                type="up"
+                type="positivo"
                 onPress={() => handleTransactionsTypeSelect("positivo")}
               />
               <TransactionTypeButton
                 isActive={transactionType === "negativo"}
                 title="Outcome"
-                type="down"
+                type="negativo"
                 onPress={() => handleTransactionsTypeSelect("negativo")}
               />
             </TransactionTypes>
