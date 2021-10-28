@@ -9,7 +9,7 @@ const icons = {
 };
 interface IProps extends RectButtonProps {
   title: string;
-  type: "up" | "down";
+  type: "positivo" | "negativo";
   isActive: boolean;
 
 }

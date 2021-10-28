@@ -65,5 +65,5 @@ export const LastTransaction = styled.Text<ITypeProps>`
   font-size: ${RFValue(12)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme, type }) =>
-    type === "total" ? theme.colors.text : theme.colors.text_dark};
+    type === "total" ? theme.colors.shape : theme.colors.text_dark};
 `;
