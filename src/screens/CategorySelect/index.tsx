@@ -13,6 +13,7 @@ import {
   Separator,
   Footer,
 } from "./styles";
+import { HeaderLayout } from "../../components/Header";
 
 interface ICategory {
   key: string;
@@ -33,9 +34,7 @@ export function CategorySelect({
   }
   return (
     <Container>
-      <Header>
-        <Title>Bancos</Title>
-      </Header>
+      <HeaderLayout title="Bancos" />
 
       <FlatList
         data={categories}

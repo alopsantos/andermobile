@@ -15,12 +15,11 @@ import { CategorySelect } from "../CategorySelect";
 
 import {
   Container,
-  Header,
-  Title,
   Form,
   Fields,
   TransactionTypes,
 } from "./styles";
+import { HeaderLayout } from "../../components/Header";
 
 interface IFormData {
   name: string;
@@ -103,9 +102,7 @@ export function Register() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container>
-        <Header>
-          <Title>Cadastro</Title>
-        </Header>
+        <HeaderLayout title="Cadastro" />
 
         <Form>
           <Fields>
