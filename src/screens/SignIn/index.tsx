@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext } from "react";
 import { RFValue } from "react-native-responsive-fontsize";
-
+import { useForm } from "react-hook-form";
 import {
   Container,
   Header,
@@ -11,19 +11,41 @@ import {
   FooterWrapper,
 } from "./styles";
 import { useAuth } from "../../hooks/auth";
-import AppleSvg from "../../assets/apple.svg";
-import GoogleSvg from "../../assets/google.svg";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import { Button } from "../../components/Form/Button";
+import { InputForm } from "../../components/Form/InputForm";
+import { Alert } from "react-native";
 import LogoSvg from "../../assets/gofinance.svg";
-import { SignInSocialButton } from "../../components/SignInSocialButton";
+
+interface ISignInFormData {
+  email: string;
+  password: string;
+}
+const schema = Yup.object().shape({
+  email: Yup.string()
+    .required("E-mail é obrigatorio!")
+    .email("Digite um e-mail válido!"),
+  password: Yup.string().required("Sua senha é obrigatório!"),
+});
 
 export function SignIn() {
   const data = useAuth();
+  const { signIn } = useAuth();
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
+
 
   return (
     <Container>
       <Header>
         <TitleWrapper>
-          <LogoSvg with={RFValue(120)} height={RFValue(200)} />
+          <LogoSvg width={RFValue(120)} height={RFValue(200)} />
 
           <Title>
             Controle suas {"\n"}
@@ -40,9 +62,26 @@ export function SignIn() {
 
       <Footer>
         <FooterWrapper>
-          <SignInSocialButton title="Entrar com Google" svg={GoogleSvg} />
-
-          <SignInSocialButton title="Entrar com Apple" svg={AppleSvg} />
+          <InputForm
+            name="email"
+            placeholder="e-mail"
+            control={control}
+            autoCapitalize="sentences"
+            keyboardType="email-address"
+            returnKeyType="next"
+            autoCorrect={false}
+            error={errors.name}
+          />
+          <InputForm
+            name="password"
+            placeholder="Senha"
+            secureTextEntry
+            returnKeyType="send"
+            control={control}
+            autoCorrect={false}
+            error={errors.name}
+          />
+          <Button title="Entrar" onPress={() => {}} />
         </FooterWrapper>
       </Footer>
     </Container>

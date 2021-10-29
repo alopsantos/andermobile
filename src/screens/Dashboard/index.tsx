@@ -113,6 +113,7 @@ export function Dashboard() {
       "negativo"
     );
     const totalInterval = `01 a ${lastTransactionExpensives}`;
+
     const total = entriesTotal - expensiveTotal;
 
     setHighLightData({
