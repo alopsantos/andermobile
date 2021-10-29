@@ -12,9 +12,9 @@ import {
   Poppins_700Bold,
   useFonts,
 } from "@expo-google-fonts/poppins";
-import { AppRoutes } from "./src/routes/app.routes";
-import { AuthProvider } from "./src/hooks/auth";
 
+import { AppRoutes } from "./src/routes/app.routes";
+import AppProvider from "./src/hooks";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -30,10 +30,9 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <NavigationContainer>
         <StatusBar barStyle="light-content" />
-        {/* <AppRoutes /> */}
-        <AuthProvider>
-          <SignIn />
-        </AuthProvider>
+        <AppProvider>
+          <AppRoutes />
+        </AppProvider>
       </NavigationContainer>
     </ThemeProvider>
   );
