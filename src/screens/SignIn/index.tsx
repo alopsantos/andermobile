@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext } from "react";
 import { RFValue } from "react-native-responsive-fontsize";
 
 import {
@@ -11,14 +11,41 @@ import {
   FooterWrapper,
 } from "./styles";
 import { useAuth } from "../../hooks/auth";
-import AppleSvg from "../../assets/apple.svg";
-import GoogleSvg from "../../assets/google.svg";
 import LogoSvg from "../../assets/gofinance.svg";
-import { SignInSocialButton } from "../../components/SignInSocialButton";
+import { Button } from "../../components/Form/Button";
+import { Input } from "../../components/Form/Input";
+import { useForm } from "react-hook-form";
+import { Alert } from "react-native";
+interface ISignInFormData {
+  email: string;
+  password: string;
+}
 
 export function SignIn() {
   const data = useAuth();
+  const { signIn } = useAuth();
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({});
 
+  const handleSignIn = useCallback((
+    async (data: ISignInFormData) => {
+      try {
+        await signIn({
+          email: data.email,
+          password: data.password,
+        })
+      } catch (error) {
+        Alert.alert(
+          "Erro na autenticação",
+          "Ocorreu um erro ao fazer o login, cheque as credenciais."
+        )
+      }
+    }
+  ), [SignIn])
   return (
     <Container>
       <Header>
@@ -40,9 +67,21 @@ export function SignIn() {
 
       <Footer>
         <FooterWrapper>
-          <SignInSocialButton title="Entrar com Google" svg={GoogleSvg} />
-
-          <SignInSocialButton title="Entrar com Apple" svg={AppleSvg} />
+          <Input
+            name="email"
+            control={control}
+            placeholder="E-mail"
+            autoCorrect={false}
+            keyboardType="email-address"
+          />
+          <Input
+            name="password"
+            control={control}
+            autoCorrect={false}
+            placeholder="Password"
+            secureTextEntry
+          />
+          <Button title="Entrar" onPress={() => {}} />
         </FooterWrapper>
       </Footer>
     </Container>
