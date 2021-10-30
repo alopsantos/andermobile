@@ -15,6 +15,7 @@ import { CategorySelect } from "../CategorySelect";
 
 import { Container, Form, Fields, TransactionTypes } from "./styles";
 import { HeaderLayout } from "../../components/Header";
+import { useAuth } from "../../hooks/auth";
 
 interface IFormData {
   name: string;
@@ -30,6 +31,7 @@ const schema = Yup.object().shape({
 });
 
 export function Register() {
+  const { user } = useAuth();
   const [category, setCategory] = useState({
     key: "category",
     name: "Categoria",
@@ -70,7 +72,7 @@ export function Register() {
       date: new Date(),
     };
     try {
-      const dataKey = "@ander:transactions";
+      const dataKey = `@ander:transactions_user:${user.id}`;
 
       const data = await AsyncStorage.getItem(dataKey);
       const currentData = data ? JSON.parse(data) : [];

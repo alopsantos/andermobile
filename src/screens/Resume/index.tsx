@@ -23,6 +23,7 @@ import {
   Month,
   LoadContainer,
 } from "./styles";
+import { useAuth } from "../../hooks/auth";
 
 interface ITransactionData {
   type: "positivo" | "negativo";
@@ -41,6 +42,7 @@ interface ICategoryData {
   percent: string;
 }
 export function Resume() {
+  const { user } = useAuth();
   const theme = useTheme();
   const [isLoading, setIsLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -51,14 +53,14 @@ export function Resume() {
 
   function handleDateChange(action: "next" | "prev") {
     if (action === "next") {
-      setSelectedDate(addMonths(selectedDate, 1));
-    } else {
       setSelectedDate(subMonths(selectedDate, 1));
+    } else {
+      setSelectedDate(addMonths(selectedDate, 1));
     }
   }
   async function loadData() {
     setIsLoading(true);
-    const dataKey = "@ander:transactions";
+    const dataKey = `@ander:transactions_user:${user.id}`;
     const response = await AsyncStorage.getItem(dataKey);
     const responseFormatted = response ? JSON.parse(response) : [];
 

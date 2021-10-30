@@ -25,8 +25,6 @@ export const Title = styled.Text`
   font-size: ${RFValue(30)}px;
 
   text-align: center;
-
-  margin-top: 45px;
 `;
 
 export const SignInTitle = styled.Text`
@@ -47,7 +45,7 @@ export const Footer = styled.View`
   background-color: ${({theme}) => theme.colors.secundary}
 `;
 
-export const FooterWrapper = styled.View`
+export const Form = styled.View`
   margin-top: ${RFPercentage(-4)}px;
   padding: 0 32px;
 

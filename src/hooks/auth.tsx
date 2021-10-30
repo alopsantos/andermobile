@@ -11,9 +11,11 @@ import api from "../services/api";
 
 interface User {
   id: string;
+  setor: string;
+  isAdmin: boolean;
   name: string;
   email: string;
-  avatar_url: string;
+  avatar: string;
 }
 
 interface SignInCredentials {
@@ -21,7 +23,7 @@ interface SignInCredentials {
   password: string;
 }
 interface AuthContextData {
-  user: object;
+  user: User;
   loading: boolean;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
@@ -44,9 +46,10 @@ const AuthProvider: React.FC = ({ children }) => {
   useEffect(() => {
     async function loadStorangeData(): Promise<void> {
       const [token, user] = await AsyncStorage.multiGet([keyToken, keyUser]);
+      
 
       if (token[1] && user[1]) {
-        api.defaults.headers.authorization = `Bearer ${token}`;
+        api.defaults.headers.authorization = `Bearer ${token[1]}`;
 
         setData({ token: token[1], user: JSON.parse(user[1]) });
       }
@@ -68,12 +71,15 @@ const AuthProvider: React.FC = ({ children }) => {
       [keyToken, token],
       [keyUser, JSON.stringify(user)],
     ]);
-    api.defaults.headers.authorization = `Bearer ${token[1]}`;
+    api.defaults.headers.authorization = `Bearer ${token}`;
 
     setData({ token, user });
   }, []);
+
+
   const signOut = useCallback(async () => {
     await AsyncStorage.multiRemove([keyToken, keyUser]);
+
     setData({} as AuthState);
   }, []);
   return (

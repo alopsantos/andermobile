@@ -28,6 +28,8 @@ import {
 } from "../../components/TransactionCard";
 import { ActivityIndicator } from "react-native";
 import { useTheme } from "styled-components";
+import { useAuth } from "../../hooks/auth";
+import api from "../../services/api";
 
 export interface IDataListProps extends TransactionCardProps {
   id: string;
@@ -41,13 +43,19 @@ interface IHighLightData {
   expensives: IHighLightProps;
   total: IHighLightProps;
 }
+
 export function Dashboard() {
+  const { user, signOut } = useAuth();
   const theme = useTheme();
   const [isLoading, setIsLoading] = useState(true);
   const [transactions, setTransacrions] = useState<IDataListProps[]>([]);
   const [HighLightData, setHighLightData] = useState<IHighLightData>(
     {} as IHighLightData
   );
+  const navigateToProfile = useCallback(() => {
+    //navigate("Profile");
+    signOut();
+  }, [signOut]);
 
   function getLastTransactionDate(
     collection: IDataListProps[],
@@ -68,7 +76,7 @@ export function Dashboard() {
     )}`;
   }
   async function loadTransactions() {
-    const dataKey = "@ander:transactions";
+    const dataKey = `@ander:transactions_user:${user.id}`;
     const response = await AsyncStorage.getItem(dataKey);
 
     const transactions = response ? JSON.parse(response) : [];
@@ -162,17 +170,15 @@ export function Dashboard() {
             <UserWrapper>
               <UserInfo>
                 <Photo
-                  source={{
-                    uri: "http://appander.s3.amazonaws.com/avatar/355bb8ba797fd4eef96bf3763538988b.jpeg",
-                  }}
+                  source={{ uri: `http://appander.s3.amazonaws.com/avatar/${user.avatar}` }}
                 />
                 <User>
                   <UserGreeting>Olá,</UserGreeting>
-                  <UserName>Anderson Lopes</UserName>
+                  <UserName>{user.name}</UserName>
                 </User>
               </UserInfo>
 
-              <LogoutButton onPress={() => {}}>
+              <LogoutButton onPress={navigateToProfile}>
                 <Icon name="power" />
               </LogoutButton>
             </UserWrapper>
