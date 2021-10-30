@@ -3,9 +3,8 @@
     "name": "andermobile",
     "slug": "andermobile",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "orientation": "portrait",
+    "assetBundlePatterns": ["**/*"]
   },
   "name": "andermobile"
 }

@@ -4,7 +4,6 @@ import { ThemeProvider } from "styled-components/native";
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "react-native";
 
-import { SignIn } from "./src/screens/SignIn";
 import theme from "./src/global/styles/theme";
 import {
   Poppins_400Regular,
@@ -12,9 +11,10 @@ import {
   Poppins_700Bold,
   useFonts,
 } from "@expo-google-fonts/poppins";
-import { AppRoutes } from "./src/routes/app.routes";
-import { AuthProvider } from "./src/hooks/auth";
 
+import { AppRoutes } from "./src/routes/app.routes";
+import AppProvider from "./src/hooks";
+import Routes from "./src/routes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -30,10 +30,9 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <NavigationContainer>
         <StatusBar barStyle="light-content" />
-        {/* <AppRoutes /> */}
-        <AuthProvider>
-          <SignIn />
-        </AuthProvider>
+        <AppProvider>
+          <Routes />
+        </AppProvider>
       </NavigationContainer>
     </ThemeProvider>
   );
