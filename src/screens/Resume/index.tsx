@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { RFValue } from "react-native-responsive-fontsize";
 import { VictoryPie } from "victory-native";
 import { useTheme } from "styled-components";

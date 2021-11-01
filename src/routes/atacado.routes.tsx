@@ -7,14 +7,10 @@ const { Navigator, Screen } = createBottomTabNavigator();
 
 import { Dashboard } from "../screens/Dashboard";
 import { Register } from "../screens/Register";
-import { Resume } from "../screens/Resume";
 import { Inscrito } from "../screens/Inscrito";
-import { useAuth } from "../hooks/auth";
 
-export function AppRoutes() {
+export function AtacadoRoutes() {
   const theme = useTheme();
-  const {user} = useAuth();
-
   return (
     <Navigator 
       screenOptions={{
@@ -32,7 +28,6 @@ export function AppRoutes() {
       <Screen name="Listagem" component={Dashboard} options={{tabBarIcon: (({size, color}) => <MaterialIcons name="format-list-bulleted" size={size} color={color} />)}} />
       <Screen name="Registro" component={Register} options={{tabBarIcon: (({size, color}) => <MaterialIcons name="attach-money" size={size} color={color} />)}} />
       <Screen name="Inscrito" component={Inscrito}options={{tabBarIcon: (({size, color}) => <MaterialIcons name="question-answer" size={size} color={color} />)}} />
-      
     </Navigator>
   );
 }

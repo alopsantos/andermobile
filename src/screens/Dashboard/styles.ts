@@ -8,7 +8,7 @@ import {
 } from "react-native-iphone-x-helper";
 import { Feather } from "@expo/vector-icons";
 
-import { DataListProps } from ".";
+import { IDataListProps } from ".";
 
 export const Container = styled.View`
   flex: 1;
@@ -92,7 +92,7 @@ export const Title = styled.Text`
 `;
 
 export const TransactionList = styled(
-  FlatList as new () => FlatList<DataListProps>
+  FlatList as new () => FlatList<IDataListProps>
 ).attrs({
   showsVerticalScrollIndicator: false,
   contentContainerStyle: {

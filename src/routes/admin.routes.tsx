@@ -11,7 +11,7 @@ import { Resume } from "../screens/Resume";
 import { Inscrito } from "../screens/Inscrito";
 import { useAuth } from "../hooks/auth";
 
-export function AppRoutes() {
+export function AdminRoutes() {
   const theme = useTheme();
   const {user} = useAuth();
 
@@ -31,8 +31,8 @@ export function AppRoutes() {
       
       <Screen name="Listagem" component={Dashboard} options={{tabBarIcon: (({size, color}) => <MaterialIcons name="format-list-bulleted" size={size} color={color} />)}} />
       <Screen name="Registro" component={Register} options={{tabBarIcon: (({size, color}) => <MaterialIcons name="attach-money" size={size} color={color} />)}} />
+      <Screen name="Resumo" component={Resume}options={{tabBarIcon: (({size, color}) => <MaterialIcons name="pie-chart" size={size} color={color} />)}} />
       <Screen name="Inscrito" component={Inscrito}options={{tabBarIcon: (({size, color}) => <MaterialIcons name="question-answer" size={size} color={color} />)}} />
-      
     </Navigator>
   );
 }
