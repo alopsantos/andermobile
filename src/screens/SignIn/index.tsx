@@ -85,7 +85,7 @@ export function SignIn() {
               autoCorrect={false}
               keyboardType="email-address"
               autoCapitalize="none"
-              error={errors.password && errors.password.message}
+              error={errors.email && errors.email.message}
             />
             <InputForm
               name="password"

@@ -7,6 +7,7 @@ const { Navigator, Screen } = createBottomTabNavigator();
 
 import { Dashboard } from "../screens/Dashboard";
 import { Register } from "../screens/Register";
+import { Depositos } from "../screens/Depositos";
 import { Inscrito } from "../screens/Inscrito";
 
 export function GerenciaRoutes() {
@@ -26,7 +27,7 @@ export function GerenciaRoutes() {
     >
       
       <Screen name="Listagem" component={Dashboard} options={{tabBarIcon: (({size, color}) => <MaterialIcons name="format-list-bulleted" size={size} color={color} />)}} />
-      <Screen name="Registro" component={Register} options={{tabBarIcon: (({size, color}) => <MaterialIcons name="attach-money" size={size} color={color} />)}} />
+      <Screen name="Depositos" component={Depositos} options={{tabBarIcon: (({size, color}) => <MaterialIcons name="attach-money" size={size} color={color} />)}} />
       <Screen name="Inscrito" component={Inscrito}options={{tabBarIcon: (({size, color}) => <MaterialIcons name="question-answer" size={size} color={color} />)}} />
     </Navigator>
   );
