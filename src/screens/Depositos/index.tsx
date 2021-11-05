@@ -28,9 +28,10 @@ interface IDepositos {
 
 const schema = Yup.object().shape({
   cliente: Yup.string().required("Nome do cliente é obrigatório!"),
-  valor: Yup.string().required(
-    "Valor do depósito ou transferencia é obrigatório!"
-  ),
+  valor: Yup.number()
+  .typeError("Infome um valor númerio")
+  .positive("O valor não pode ser negativo!")
+  .required("O valor é obrigador informar"),
   data: Yup.date()
     .required("Data do deposito ou transferencia é obrigatório!")
 });
@@ -46,7 +47,7 @@ export function Depositos() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({ resolver: yupResolver(schema)});
 
   function handleOpenSelectCategoryModal() {
     setCategoryModalOpen(true);
@@ -63,7 +64,7 @@ export function Depositos() {
         user_id: user.id,
         cliente: form.cliente,
         banco: category.key,
-        data: new Date(form.data),
+        data: form.data,
         valor: form.valor,
       });
 
@@ -93,7 +94,7 @@ export function Depositos() {
               placeholder="Nome igual no comprovante"
               autoCapitalize="sentences"
               autoCorrect={false}
-              error={errors.cliente && errors.name.message}
+              error={errors.cliente && errors.cliente.message}
             />
 
             <InputForm
@@ -107,7 +108,7 @@ export function Depositos() {
               name="data"
               control={control}
               placeholder="data"
-              keyboardType="number-pad"
+              keyboardType="numbers-and-punctuation"
               error={errors.data && errors.data.message}
             />
 

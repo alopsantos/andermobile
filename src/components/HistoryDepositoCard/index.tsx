@@ -32,7 +32,7 @@ export function HistoryDepositoCard({ data }: IProps) {
   const theme = useTheme();
   const [category] = categories.filter((item) => item.key === data.banco);
   return (
-    <Container>
+    <Container color={category.color}>
       <Content>
         <Title>{category.name}</Title>
         <Cliente>{data.cliente}</Cliente>
