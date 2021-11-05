@@ -3,37 +3,36 @@ import { format, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useFocusEffect } from "@react-navigation/core";
 
-
 import { HeaderLayout } from "../../components/Header";
 import { InscritosCard } from "../../components/IncritosCard";
 import { useAuth } from "../../hooks/auth";
-import api from '../../services/api';
+import api from "../../services/api";
 
 import { Container, ListaInscritos } from "./styles";
-import axios from "axios";
+
 export interface ISubscribers {
-  _id: string;
-  nome: string;
+  id: string;
+  status: boolean;
+  name: string;
   email: string;
   whatsapp: string;
-  subscribeAt: string;
-  status: number;
+  isLogista: string;
+  created_at: string;
 }
 export function Inscrito() {
   const { user } = useAuth();
   const [clientes, setClientes] = useState<ISubscribers[]>([]);
-  
-  async function loadingSubscribers(){
-    try {
-      const { data } = await axios.get("https://alinemezzaribrand.com.br/api/subscribers/entraremcontato");
 
+  async function loadingSubscribers() {
+    try {
+      const { data } = await api.get("/subscribers/lista?status=false");
       const clientes = data.map((cliente: any) => {
         return {
-          _id: cliente._id,
-          nome: cliente.nome,
+          id: cliente.id,
+          name: cliente.name,
           whatsapp: cliente.whatsapp,
           email: cliente.email,
-          subscribeAt: format(parseISO(cliente.subscribeAt), "dd/MM/yy", {
+          created_at: format(parseISO(cliente.created_at), "dd/MM/yy", {
             locale: ptBR,
           }),
           status: cliente.status,
@@ -43,7 +42,6 @@ export function Inscrito() {
     } catch (error) {
       console.log(error);
     } finally {
-  
     }
   }
 
@@ -58,8 +56,9 @@ export function Inscrito() {
 
       <ListaInscritos
         data={clientes}
-        keyExtractor={(item) => item._id}
-        renderItem={({item}) => <InscritosCard data={item} />}
+        keyExtractor={(item) => item.id}
+        initialNumToRender={5}
+        renderItem={({ item }) => <InscritosCard data={item} />}
       />
     </Container>
   );

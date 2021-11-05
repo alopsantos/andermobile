@@ -18,29 +18,29 @@ const Routes: React.FC = () => {
       </View>
     );
   }
-  // return user && user.setor === '2' ? <AppRoutes /> : <AuthRoutes />;
-  if (user) {
-    if(user.isAdmin === true){
-      switch (user.setor) {
-        case "2":
-          return <AtacadoRoutes />;
-        case "99":
-          return <GerenciaRoutes />;
-        default:
-          return <AuthRoutes />;
-      }
-    }
-    switch (user.setor) {
-      case "2":
-        return <AtacadoRoutes />;
-      case "3":
-        return <AppRoutes />;
-      default:
-        return <AuthRoutes />;
-    }
-  } else {
-    return <AuthRoutes />;
-  }
+  return user ? <AppRoutes /> : <AuthRoutes />;
+  // if (user) {
+  //   if(user.isAdmin === true){
+  //     switch (user.setor) {
+  //       case "2":
+  //         return <AtacadoRoutes />;
+  //       case "99":
+  //         return <GerenciaRoutes />;
+  //       default:
+  //         return <AuthRoutes />;
+  //     }
+  //   }
+  //   switch (user.setor) {
+  //     case "2":
+  //       return <AtacadoRoutes />;
+  //     case "3":
+  //       return <AppRoutes />;
+  //     default:
+  //       return <AuthRoutes />;
+  //   }
+  // } else {
+  //   return <AuthRoutes />;
+  // }
 };
 
 export default Routes;

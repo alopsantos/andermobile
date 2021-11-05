@@ -3093,7 +3093,7 @@ expo-modules-core@~0.4.5:
     compare-versions "^3.4.0"
     invariant "^2.2.4"
 
-expo-splash-screen@~0.13.3, expo-splash-screen@~0.13.4:
+expo-splash-screen@~0.13.3:
   version "0.13.4"
   resolved "https://registry.yarnpkg.com/expo-splash-screen/-/expo-splash-screen-0.13.4.tgz#70de5dcbb5bbd3ce88185e830d84f123c8afafe1"
   integrity sha512-xcRCx07WlPGP8+qKxqAW4KP1+j7/a9H+xn8/cmpKAmzYbs/ttTRzDEQzEq8BvVqyoBPS6Qo7Hwl1BHDpssjftw==
@@ -3101,6 +3101,15 @@ expo-splash-screen@~0.13.3, expo-splash-screen@~0.13.4:
     "@expo/configure-splash-screen" "^0.6.0"
     "@expo/prebuild-config" "^3.0.6"
     expo-modules-core "~0.4.4"
+
+expo-splash-screen@~0.13.5:
+  version "0.13.5"
+  resolved "https://registry.yarnpkg.com/expo-splash-screen/-/expo-splash-screen-0.13.5.tgz#ece76c092f2ce88e4660a70e532ed47909a01ddd"
+  integrity sha512-L/L0XlmmxSoyuooCVvbPBO4xUF9kAs+F0+fML3pf7miBOnTd/v9j5riKSmaDthNtM4AarXxgi0AXzSHQ1M3rZg==
+  dependencies:
+    "@expo/configure-splash-screen" "^0.6.0"
+    "@expo/prebuild-config" "^3.0.6"
+    expo-modules-core "~0.4.7"
 
 expo-status-bar@~1.1.0:
   version "1.1.0"
@@ -3117,10 +3126,10 @@ expo-updates-interface@~0.4.0:
   resolved "https://registry.yarnpkg.com/expo-updates-interface/-/expo-updates-interface-0.4.0.tgz#20961f2cb4bd068a74c29434affa08791dbaa240"
   integrity sha512-EUJaLnDAePikGEQT8w6gjCY3m/dlGgjZKVn5XBaxZMkHzOy3PDQo6QOcK/bcMdkA3CyNrvo6NCe+/7RHrgmK4A==
 
-expo-updates@~0.10.8:
-  version "0.10.8"
-  resolved "https://registry.yarnpkg.com/expo-updates/-/expo-updates-0.10.8.tgz#7cbcde6c01ea6422614afc18a7844dbc3d5a75b9"
-  integrity sha512-uZ7zHcqDXyrbCNcMc3zPuKNZMK3YEtwrxC5fEjyph9LY/1bbhHZ40KqYfsGL5szn6qWO19SB7wrtkBVc7SmRLA==
+expo-updates@~0.10.12:
+  version "0.10.12"
+  resolved "https://registry.yarnpkg.com/expo-updates/-/expo-updates-0.10.12.tgz#a60f889ecc2fbd05855f9c448778dee3c3c40455"
+  integrity sha512-DltK873QN3UisjLhe+Oi6R0RKvg4ygbqhqNA1K50w9eBTLnDJ5mQHUyOsqeaXaXhDIPcWNLBaNP2zVfuAxBoIw==
   dependencies:
     "@expo/config" "^5.0.9"
     "@expo/config-plugins" "^4.0.2"

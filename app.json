@@ -4,7 +4,15 @@
     "slug": "andermobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "assetBundlePatterns": ["**/*"]
+    "assetBundlePatterns": ["**/*"],
+    "icon": "./assets/Icon.png"
   },
-  "name": "andermobile"
+  "name": "andermobile",
+  "updates": {
+    "fallbackToCacheTimeout": 0
+  },
+  "assetBundlePatterns": ["**/*"],
+  "ios": {
+    "supportsTablet": true
+  }
 }

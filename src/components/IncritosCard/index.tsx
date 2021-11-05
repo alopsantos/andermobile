@@ -19,12 +19,13 @@ interface IProps {
   data: ISubscribers;
 }
 interface ISubscribers {
-  _id: string;
-  nome: string;
+  id: string;
+  status: boolean;
+  name: string;
   email: string;
   whatsapp: string;
-  subscribeAt: string;
-  status: number;
+  isLogista: string;
+  created_at: string;
 }
 
 export function InscritosCard({ data }: IProps) {
@@ -55,39 +56,39 @@ export function InscritosCard({ data }: IProps) {
   };
 
   async function contatoFeito(codigo: string) {
-    await axios.post(
-      "https://alinemezzaribrand.com.br/api/subscribers/update",
-      {
-        id: codigo,
-      }
-    );
-    console.log(codigo)
+    try {
+      await api.patch(`/subscribers/${codigo}`, {
+        status: true
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
   return (
     <Container>
       <View style={{flexDirection: "row"}}>
         <Informacao>
           <Title ellipsizeMode="tail" numberOfLines={1}>
-            {data.nome}
+            {data.name}
           </Title>
           <Info ellipsizeMode="middle" numberOfLines={3}>
-            <Icon name="whatsapp" size="16" /> {data.whatsapp} {`\n`}
-            <Icon name="calendar-alt" size="16" /> {data.subscribeAt}
+            <Icon name="whatsapp" size={16} /> {data.whatsapp} {`\n`}
+            <Icon name="calendar-alt" size={16} /> {data.created_at}
           </Info>
         </Informacao>
         <Actions>
-          <ActionButton onPress={() => createTwoBottonAlert(data._id)}>
-            <Icon name="archive" color={theme.colors.text} size="32" />
+          <ActionButton onPress={() => createTwoBottonAlert(data.id)}>
+            <Icon name="archive" color={theme.colors.text} size={32} />
           </ActionButton>
           <ActionButton
-            onPress={() => handlePresWhatsapp(data.whatsapp, data.nome)}
+            onPress={() => handlePresWhatsapp(data.whatsapp, data.name)}
           >
-            <Icon name="whatsapp" color={theme.colors.success} size="32" />
+            <Icon name="whatsapp" color={theme.colors.success} size={32} />
           </ActionButton>
         </Actions>
       </View>
       <InfoEmail>
-        <Icon name="mail-bulk" size="16" /> {data.email}
+        <Icon name="mail-bulk" size={16} /> {data.email}
       </InfoEmail>
     </Container>
   );

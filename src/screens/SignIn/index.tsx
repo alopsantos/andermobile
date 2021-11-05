@@ -1,5 +1,10 @@
 import React, { useCallback, useContext } from "react";
-import { Keyboard, TouchableWithoutFeedback } from "react-native";
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import * as Yup from "yup";
 
@@ -13,12 +18,13 @@ import {
   Form,
 } from "./styles";
 import { useAuth } from "../../hooks/auth";
-import LogoSvg from "../../assets/gofinance.svg";
+import LogoSvg from "../../assets/ander.svg";
 import { Button } from "../../components/Form/Button";
 import { useForm } from "react-hook-form";
 import { Alert } from "react-native";
 import { InputForm } from "../../components/Form/InputForm";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { ScrollView } from "react-native-gesture-handler";
 interface ISignInFormData {
   email: string;
   password: string;
@@ -38,7 +44,7 @@ export function SignIn() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({resolver: yupResolver(schema)});
+  } = useForm({ resolver: yupResolver(schema) });
 
   const handleSignIn = useCallback(
     async (data: ISignInFormData) => {
@@ -57,48 +63,59 @@ export function SignIn() {
     [SignIn]
   );
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <Container>
-        <Header>
-          <TitleWrapper>
-            <LogoSvg width={RFValue(120)} height={RFValue(200)} />
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      enabled
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+    >
+      <ScrollView
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{ flex: 1 }}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <Container>
+            <Header>
+              <TitleWrapper>
+                <LogoSvg width={RFValue(120)} height={RFValue(200)} />
 
-            <Title>
-              Controle suas {"\n"}
-              finanças de forma {"\n"}
-              muito simplees{"\n"}
-            </Title>
-          </TitleWrapper>
+                <Title>
+                  Controle suas {"\n"}
+                  vendas de forma {"\n"}
+                  muito simplees{"\n"}
+                </Title>
+              </TitleWrapper>
 
-          <SignInTitle>
-            Faça seu login com {"\n"}
-            uma das contas abaixo {"\n"}
-          </SignInTitle>
-        </Header>
+              <SignInTitle>
+                Faça seu login com {"\n"}
+                seu email e senha {"\n"}
+              </SignInTitle>
+            </Header>
 
-        <Footer>
-          <Form>
-            <InputForm
-              name="email"
-              control={control}
-              placeholder="E-mail"
-              autoCorrect={false}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              error={errors.email && errors.email.message}
-            />
-            <InputForm
-              name="password"
-              control={control}
-              autoCorrect={false}
-              placeholder="Password"
-              secureTextEntry
-              error={errors.password && errors.password.message}
-            />
-            <Button title="Entrar" onPress={handleSubmit(handleSignIn)} />
-          </Form>
-        </Footer>
-      </Container>
-    </TouchableWithoutFeedback>
+            <Footer>
+              <Form>
+                <InputForm
+                  name="email"
+                  control={control}
+                  placeholder="E-mail"
+                  autoCorrect={false}
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                  error={errors.email && errors.email.message}
+                />
+                <InputForm
+                  name="password"
+                  control={control}
+                  autoCorrect={false}
+                  placeholder="Password"
+                  secureTextEntry
+                  error={errors.password && errors.password.message}
+                />
+                <Button title="Entrar" onPress={handleSubmit(handleSignIn)} />
+              </Form>
+            </Footer>
+          </Container>
+        </TouchableWithoutFeedback>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
