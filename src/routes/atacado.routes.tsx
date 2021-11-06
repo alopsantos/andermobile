@@ -8,6 +8,8 @@ const { Navigator, Screen } = createBottomTabNavigator();
 import { Dashboard } from "../screens/Dashboard";
 import { Register } from "../screens/Register";
 import { Inscrito } from "../screens/Inscrito";
+import { DepositosLista } from "../screens/Vendedores/DepositosLista";
+import { Depositos } from "../screens/Depositos";
 
 export function AtacadoRoutes() {
   const theme = useTheme();
@@ -25,8 +27,9 @@ export function AtacadoRoutes() {
       }}
     >
       
-      <Screen name="Listagem" component={Dashboard} options={{tabBarIcon: (({size, color}) => <MaterialIcons name="format-list-bulleted" size={size} color={color} />)}} />
-      <Screen name="Registro" component={Register} options={{tabBarIcon: (({size, color}) => <MaterialIcons name="attach-money" size={size} color={color} />)}} />
+      <Screen name="Home" component={Dashboard} options={{tabBarIcon: (({size, color}) => <MaterialIcons name="apps" size={size} color={color} />)}} />
+      <Screen name="Depositos" component={DepositosLista} options={{tabBarIcon: (({size, color}) => <MaterialIcons name="format-list-bulleted" size={size} color={color} />)}} />
+      <Screen name="Enviar" component={Depositos} options={{tabBarIcon: (({size, color}) => <MaterialIcons name="attach-money" size={size} color={color} />)}} />
       <Screen name="Inscrito" component={Inscrito}options={{tabBarIcon: (({size, color}) => <MaterialIcons name="question-answer" size={size} color={color} />)}} />
     </Navigator>
   );

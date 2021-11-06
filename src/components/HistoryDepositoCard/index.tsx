@@ -1,4 +1,5 @@
 import React from "react";
+import { color } from "react-native-reanimated";
 import { useTheme } from "styled-components";
 import { categories } from "../../utils/categories";
 
@@ -12,7 +13,7 @@ import {
   Cliente,
   Actions,
   ActionButton,
-  Icon
+  Icon,
 } from "./styled";
 
 interface IDepositoProps {
@@ -22,7 +23,7 @@ interface IDepositoProps {
   cliente: string;
   banco: string;
   valor: number;
-  data: Date;
+  data: string;
 }
 
 interface IProps {
@@ -32,18 +33,18 @@ export function HistoryDepositoCard({ data }: IProps) {
   const theme = useTheme();
   const [category] = categories.filter((item) => item.key === data.banco);
   return (
-    <Container color={category.color}>
+    <Container color={category.color} >
       <Content>
         <Title>{category.name}</Title>
         <Cliente>{data.cliente}</Cliente>
         <Amount>
           <Valor>{data.valor}</Valor>
-          <Data>25/11/1988</Data>
+          <Data>{data.data} | {data.status}</Data>
         </Amount>
       </Content>
       <Actions>
         <ActionButton>
-          <Icon name="check-circle" color={theme.colors.text} size={32} />
+          <Icon name="check-circle" status={data.status} size={32} />
         </ActionButton>
       </Actions>
     </Container>

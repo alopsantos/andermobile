@@ -29,9 +29,9 @@ export function AppRoutes() {
       }}
     >
       
-      <Screen name="Listagem" component={Dashboard} options={{tabBarIcon: (({size, color}) => <MaterialIcons name="format-list-bulleted" size={size} color={color} />)}} />
-      <Screen name="Depositos" component={Depositos} options={{tabBarIcon: (({size, color}) => <MaterialIcons name="attach-money" size={size} color={color} />)}} />
-      <Screen name="Lista" component={DepositosLista}options={{tabBarIcon: (({size, color}) => <MaterialIcons name="question-answer" size={size} color={color} />)}} />
+      <Screen name="Home" component={Dashboard}options={{tabBarIcon: (({size, color}) => <MaterialIcons name="format-list-bulleted" size={size} color={color} />)}} />
+      <Screen name="Depositos" component={DepositosLista}options={{tabBarIcon: (({size, color}) => <MaterialIcons name="format-list-bulleted" size={size} color={color} />)}} />
+      <Screen name="Enviar" component={Depositos} options={{tabBarIcon: (({size, color}) => <MaterialIcons name="attach-money" size={size} color={color} />)}} />
       
     </Navigator>
   );

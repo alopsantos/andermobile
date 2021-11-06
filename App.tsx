@@ -12,9 +12,9 @@ import {
   useFonts,
 } from "@expo-google-fonts/poppins";
 
-import { AppRoutes } from "./src/routes/app.routes";
 import AppProvider from "./src/hooks";
-import Routes from "./src/routes";
+import { Routes } from "./src/routes";
+
 
 export default function App() {
   const [fontsLoaded] = useFonts({

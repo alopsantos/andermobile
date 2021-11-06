@@ -36,7 +36,6 @@ interface AuthState {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
-  
   const keyToken = "@ander:token";
   const keyUser = "@ander:user";
 
@@ -45,37 +44,43 @@ const AuthProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     async function loadStorangeData(): Promise<void> {
-      const [token, user] = await AsyncStorage.multiGet([keyToken, keyUser]);
-      
+      try {
+        const [token, user] = await AsyncStorage.multiGet([keyToken, keyUser]);
 
-      if (token[1] && user[1]) {
-        api.defaults.headers.authorization = `Bearer ${token[1]}`;
+        if (token[1] && user[1]) {
+          api.defaults.headers.authorization = `Bearer ${token[1]}`;
 
-        setData({ token: token[1], user: JSON.parse(user[1]) });
+          setData({ token: token[1], user: JSON.parse(user[1]) });
+        }
+
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
       }
-
-      setLoading(false);
     }
     loadStorangeData();
   }, []);
 
   const signIn = useCallback(async ({ email, password }) => {
-    const response = await api.post("/sessions", {
-      email,
-      password,
-    });
+    try {
+      const response = await api.post("/sessions", {
+        email,
+        password,
+      });
 
-    const { token, user } = response.data;
+      const { token, user } = response.data;
 
-    await AsyncStorage.multiSet([
-      [keyToken, token],
-      [keyUser, JSON.stringify(user)],
-    ]);
-    api.defaults.headers.authorization = `Bearer ${token}`;
+      await AsyncStorage.multiSet([
+        [keyToken, token],
+        [keyUser, JSON.stringify(user)],
+      ]);
+      api.defaults.headers.authorization = `Bearer ${token}`;
 
-    setData({ token, user });
+      setData({ token, user });
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
-
 
   const signOut = useCallback(async () => {
     await AsyncStorage.multiRemove([keyToken, keyUser]);

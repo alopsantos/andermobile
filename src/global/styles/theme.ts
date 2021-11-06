@@ -6,6 +6,7 @@ export default {
     
     success: '#12A454',
     success_light: 'rgba(18, 164, 84, 0.5)',
+    success_ultra: 'rgba(18, 164, 84, 0.1)',
     
     attention: '#E83F58',
     attention_light: 'rgba(232, 63,91, 0.5)',

@@ -5,6 +5,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 
 interface IContainerProps{
   color: string;
+  status?: number;
 }
 export const Container = styled.View<IContainerProps>`
   background-color: ${({theme})=> theme.colors.shape};
@@ -58,4 +59,6 @@ export const Actions = styled.View`
 export const ActionButton = styled(BorderlessButton)`
   padding: 14px;
 `;
-export const Icon = styled(FontAwesome5)``;
+export const Icon = styled(FontAwesome5)<IContainerProps>`
+  color: ${({status, theme})=> status == 0 ? theme.colors.background : theme.colors.success}}
+`;
