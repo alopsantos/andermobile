@@ -29,8 +29,10 @@ export function DepositosLista() {
   const [depositos, setDepositos] = useState<IDepositoProps[]>([]);
 
   async function loadDepositosUser() {
+    
     try {
-      const { data } = await api.get(`/depositos?user_id=${user.id}`);
+      const {data} = await api.get(`/depositos?user_id=${user.id}`);
+      
       const depositos: IDepositoProps[] = data.map(
         (deposito: IDepositoProps) => {
           const data = Intl.DateTimeFormat("pt-BR", {
@@ -58,6 +60,7 @@ export function DepositosLista() {
     } catch (error) {
       console.log(error);
     }
+    
   }
 
   useFocusEffect(

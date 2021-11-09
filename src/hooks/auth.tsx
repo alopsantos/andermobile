@@ -8,6 +8,7 @@ import React, {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import api from "../services/api";
+import { Alert } from "react-native";
 
 interface User {
   id: string;
@@ -27,6 +28,7 @@ interface AuthContextData {
   loading: boolean;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
+  defineInterceptor(): void;
 }
 interface AuthState {
   token: string;
@@ -36,6 +38,7 @@ interface AuthState {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
+  const state = { errorMessage: null,}
   const keyToken = "@ander:token";
   const keyUser = "@ander:user";
 
@@ -52,10 +55,10 @@ const AuthProvider: React.FC = ({ children }) => {
 
           setData({ token: token[1], user: JSON.parse(user[1]) });
         }
-
+        console.log("Oi")
         setLoading(false);
       } catch (error) {
-        console.log(error);
+       signOut();
       }
     }
     loadStorangeData();
@@ -67,18 +70,20 @@ const AuthProvider: React.FC = ({ children }) => {
         email,
         password,
       });
-
       const { token, user } = response.data;
-
+      
       await AsyncStorage.multiSet([
         [keyToken, token],
-        [keyUser, JSON.stringify(user)],
+        [keyUser, JSON.stringify(user)]
       ]);
+      
       api.defaults.headers.authorization = `Bearer ${token}`;
+      
+
 
       setData({ token, user });
-    } catch (error) {
-      console.log(error);
+    } catch (response) {
+      console.log("Erro aqui")
     }
   }, []);
 
@@ -87,8 +92,25 @@ const AuthProvider: React.FC = ({ children }) => {
 
     setData({} as AuthState);
   }, []);
+
+  const defineInterceptor = useCallback(async () =>{
+    api.interceptors.response.use(response => {
+      return response
+    }, error => {
+      return new Promise((resolve, reject) => {
+        const originalReq = error.config
+        if(error.response.status == 401 && error.config && !error.config._retry){
+          Alert.alert("Oi, você vai precisar fazer o login novemente para continuar.")
+          signOut();
+        }else{
+          console.log("Nao deu certo")
+        }
+      })
+    })
+  }, [])
+    
   return (
-    <AuthContext.Provider value={{ user: data.user, loading, signIn, signOut }}>
+    <AuthContext.Provider value={{ user: data.user, loading, signIn, signOut, defineInterceptor }}>
       {children}
     </AuthContext.Provider>
   );

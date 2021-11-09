@@ -10,8 +10,8 @@ import { GerenciaRoutes } from "./gerencia.routes";
 
 //const Routes: React.FC = () => {
 export function Routes() {
-  const { user, loading } = useAuth();
-
+  const { user, loading, defineInterceptor } = useAuth();
+  defineInterceptor();
   if (loading) {
     return (
       <View>
